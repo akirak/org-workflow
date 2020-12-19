@@ -102,18 +102,15 @@
      "Store link"
      :dispatch (on-marker
                 (call-interactively 'org-store-link))))
-  "Alist of actions."
+  "Alist of actions on headings."
   :type '(repeat (list (symbol :tag "Identifier")
                        (string :tag "Label that describes the action")
                        (plist :inline t
                               :options
-                              (((const :tag "Function that dispatches the action on a marker" :dispatch)
-                                function)))))
-  :set (lambda (sym value)
-         (set-default sym value)
-         ;; NOTE: For development
-         (setq helm-org-headings-actions
-               (org-workflow--build-helm-actions value))))
+                              (((const :tag "Key in generated Ivy action lists" :ivy-key)
+                                string)
+                               ((const :tag "Function that dispatches the action on a marker" :dispatch)
+                                function))))))
 
 (defconst org-workflow-extra-heading-action-list-1
   '((clock-out
