@@ -117,7 +117,7 @@
         actions))
 
 ;;;;; Custom variables
-(defcustom org-workflow-heading-action-list
+(defcustom org-workflow-heading-unary-action-list
   '((goto
      "Show"
      :ivy-key "g"
@@ -145,7 +145,7 @@
                                ((const :tag "Function that dispatches the action on a marker" :dispatch)
                                 function))))))
 
-(defconst org-workflow-extra-heading-action-list-1
+(defconst org-workflow-extra-heading-unary-action-list-1
   '((clock-out
      "Clock out"
      :dispatch (on-marker
