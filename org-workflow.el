@@ -132,12 +132,12 @@
                 :interactive t
                 (org-todo)))
     (set-tags
-     :label "Set tags"
+     "Set tags"
      :dispatch (on-marker
                 :interactive t
                 (org-set-tags-command)))
     (set-property
-     :label "Set a property"
+     "Set a property"
      :dispatch (on-marker
                 :interactive t
                 (call-interactively 'org-set-property))))
