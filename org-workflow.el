@@ -4,7 +4,7 @@
 
 ;; Author: Akira Komamura <akira.komamura@gmail.com>
 ;; Version: 0.1
-;; Package-Requires: ((emacs "25.1") (dash "2.12"))
+;; Package-Requires: ((emacs "26.1") (dash "2.12"))
 ;; Keywords: outlines convenience
 ;; URL: https://github.com/akirak/org-workflow
 
@@ -32,6 +32,7 @@
 ;;; Code:
 
 (require 'dash)
+(require 'org)
 
 (defgroup org-workflow
   nil
@@ -184,14 +185,14 @@
               (org-base-buffer (marker-buffer marker)))
          (or (eq (marker-position marker1)
                  (marker-position marker))
-             (cl-macrolet ((heading-pos (m)
-                                        (with-current-buffer (org-base-buffer (marker-buffer ,m))
-                                          (goto-char (marker-position ,m))
-                                          (save-excursion
-                                            (org-back-to-heading)
-                                            (point)))))
-               (eq (heading-pos marker1)
-                   (heading-pos marker)))))))
+             (apply #'eq (-map (lambda (m)
+                                 (with-current-buffer
+                                     (org-base-buffer (marker-buffer m))
+                                   (goto-char (marker-position m))
+                                   (save-excursion
+                                     (org-back-to-heading)
+                                     (point))))
+                               (list marker1 marker)))))))
 
 (defun org-workflow-insert-link (marker)
   "In Org, insert a link to the heading at MARKER."
